@@ -18,7 +18,7 @@ function dcStart {
 }
 
 # Stop docker-sync and docker-compose in current project
-function dcSstop {
+function dcStop {
     docker-sync stop
     dc down
 }
