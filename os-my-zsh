@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+# Oh my ZSH configuration
+plugins=(git brew docker docker-compose zsh-syntax-highlighting zsh-autosuggestions)

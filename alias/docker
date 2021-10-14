@@ -1,0 +1,52 @@
+#!/bin/zsh
+
+########################################################################################################################
+#                                                                                                                      #
+#                                           GENERIC DOCKER-COMPOSE FUNCTION                                            #
+#                                                                                                                      #
+########################################################################################################################
+
+# Execute docker-compose with the right yml files
+function dc {
+    docker-compose -f "$MAIN_DOCKER_COMPOSE_FILE" -f "$(pwd)"/docker-compose.override.yml $@
+}
+
+# Launch docker-sync and docker-compose in current project
+function dcStart {
+    docker-sync start
+    dc up -d
+}
+
+# Stop docker-sync and docker-compose in current project
+function dcSstop {
+    docker-sync stop
+    dc down
+}
+
+# Launch docker exec bash in given container
+function dcBash {
+    if [ $# -lt 1 ]; then
+        echo 1>&2 "dcexec: please provide the container name"
+        return 1
+    fi
+    CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
+    dc exec --workdir /home/"$CurrentWd" $1 bash
+}
+
+########################################################################################################################
+#                                                                                                                      #
+#                                               PHP CONTAINER FUNCTIONS                                                #
+#                                                                                                                      #
+########################################################################################################################
+
+# Execute PHP in the php container
+function php {
+    CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
+    dc exec --workdir /home/"$CurrentWd" -T php php "$@"
+}
+
+# Execute Composer in the php container
+function composer {
+    CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
+    dc exec --workdir /home/"$CurrentWd"/ -T php composer "$@"
+}
