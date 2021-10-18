@@ -2,3 +2,7 @@
 
 source "${0:A:h}"/.env
 source "${0:A:h}"/alias/docker
+
+PATH="$PATH:${0:A:h}/bin"
+
+chmod +x "${0:A:h}"/bin/*
