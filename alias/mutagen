@@ -1,0 +1,72 @@
+#!/bin/zsh
+
+source "${0:A:h}"/../.env
+
+# https://medium.com/@marickvantuil/speed-up-docker-for-mac-with-mutagen-14c2a2c9cba7
+# https://github.com/mikefarah/yq
+
+function mutagenSyncStart {
+  DOCKER_SYNCS_CONFIG=$(yq e '.syncs.*.src' $(pwd)/docker-sync.yml)
+
+  echo "" > commandes-start.txt
+  while IFS= read -r SYNC; do
+    if [ "$SYNC" = "./" ]; then
+      SYNC="../$(dirname "$(pwd)"/docker-sync.yml | sed "s|$PROJECTS_ROOT_FOLDER||")"
+    fi
+
+    dockerSyncPath="${0:A:h}/$SYNC/docker-sync.yml.dist"
+    dockerSyncPath="${dockerSyncPath:a}"
+
+    projectPath="$(dirname "$dockerSyncPath")"
+
+    if [ ! -d "$projectPath" ]; then
+      echo "[mutagen-toolbox] Folder does not exist ($projectPath)"
+      return 1
+    fi
+
+    projectName="${projectPath//$PROJECTS_ROOT_FOLDER/}"
+
+    isInSync=$(mutagen sync list | grep -c "$projectName: <empty>")
+
+    if [ "$isInSync" -gt 0 ]; then
+      echo "[mutagen-toolbox] Folder already in sync ($projectPath)"
+      continue
+    fi
+
+    echo "[mutagen-toolbox] Starting Synchronisation for $dockerSyncPath"
+    mutagen sync create --name=$projectName $(dirname "$dockerSyncPath") docker://root@$DOCKER_APACHE_CONTAINER/home/$projectName --label $projectName --default-owner-beta $DOCKER_APACHE_USER --default-group-beta $DOCKER_APACHE_GROUP  --default-directory-mode-beta 775 --default-file-mode-beta 664 --default-group-beta $DOCKER_APACHE_GROUP --ignore=.idea
+  done <<< "$DOCKER_SYNCS_CONFIG"
+}
+
+function mutagenSyncStop {
+  DOCKER_SYNCS_CONFIG=$(yq e '.syncs.*.src' $(pwd)/docker-sync.yml)
+
+  echo "" > commandes-stop.txt
+  while IFS= read -r SYNC; do
+    if [ "$SYNC" = "./" ]; then
+      SYNC="../$(dirname "$(pwd)"/docker-sync.yml | sed "s|$PROJECTS_ROOT_FOLDER||")"
+    fi
+
+    dockerSyncPath="${0:A:h}/$SYNC/docker-sync.yml.dist"
+    dockerSyncPath="${dockerSyncPath:a}"
+
+    projectPath="$(dirname "$dockerSyncPath")"
+
+    if [ ! -d "$projectPath" ]; then
+      echo "[mutagen-toolbox] Folder does not exist ($projectPath)"
+      return 1
+    fi
+
+    projectName="${projectPath//$PROJECTS_ROOT_FOLDER/}"
+
+    isInSync=$(mutagen sync list | grep -c "$projectName: <empty>")
+
+    if [ "$isInSync" -eq 0 ]; then
+      echo "[mutagen-toolbox] Project not in sync ($projectName)"
+      continue
+    fi
+
+    echo "[mutagen-toolbox] Terminating Synchronisation for $dockerSyncPath"
+    mutagen sync terminate --label-selector "$projectName"
+  done <<< "$DOCKER_SYNCS_CONFIG"
+}

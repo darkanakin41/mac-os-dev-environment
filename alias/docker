@@ -13,20 +13,20 @@ function dc {
 
 # Launch docker-sync and docker-compose in current project
 function dcStart {
-    docker-sync start
     dc up -d
+    mutagenSyncStart
 }
 
 # Stop docker-sync and docker-compose in current project
 function dcStop {
-    docker-sync stop
     dc down
+    mutagenSyncStop
 }
 
 # Launch docker exec bash in given container
 function dcBash {
     if [ $# -lt 1 ]; then
-        echo 1>&2 "dcexec: please provide the container name"
+        echo 1>&2 "[dcexec] please provide the container name"
         return 1
     fi
     CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
