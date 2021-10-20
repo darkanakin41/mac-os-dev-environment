@@ -8,7 +8,6 @@ source "${0:A:h}"/../.env
 function mutagenSyncStart {
   DOCKER_SYNCS_CONFIG=$(yq e '.syncs.*.src' $(pwd)/docker-sync.yml)
 
-  echo "" > commandes-start.txt
   while IFS= read -r SYNC; do
     if [ "$SYNC" = "./" ]; then
       SYNC="../$(dirname "$(pwd)"/docker-sync.yml | sed "s|$PROJECTS_ROOT_FOLDER||")"
