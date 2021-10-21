@@ -19,8 +19,8 @@ function dcStart {
 
 # Stop docker-sync and docker-compose in current project
 function dcStop {
-    dc down
     mutagenSyncStop
+    dc down
 }
 
 # Launch docker exec bash in given container

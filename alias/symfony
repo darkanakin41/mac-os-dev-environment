@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+function symfonyCheck {
+  composer validate
+  php bin/console doctrine:schema:validate --skip-sync --no-interaction
+  php bin/console lint:yaml config --parse-tags
+  php bin/console lint:twig templates
+  php bin/phpunit
+}
