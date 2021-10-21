@@ -3,6 +3,7 @@
 source "${0:A:h}"/.env
 source "${0:A:h}"/alias/docker
 source "${0:A:h}"/alias/mutagen
+source "${0:A:h}"/alias/npm
 source "${0:A:h}"/alias/symfony
 
 PATH="$PATH:${0:A:h}/bin"

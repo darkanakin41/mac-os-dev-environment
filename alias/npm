@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+function lighthouseCheck() {
+  if [ $# -lt 1 ]; then
+    echo 1>&2 "[lighthouseCheck] please provide the url to check"
+    return 1
+  fi
+
+  lighthouse "$1" --view --output-path "$HOME/lighthouse-report.html"
+}
+
+function lighthouseReports {
+  open "$HOME/lighthouse-report.html"
+}

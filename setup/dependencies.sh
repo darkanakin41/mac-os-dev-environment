@@ -11,3 +11,6 @@ yq shell-completion bash > /usr/local/etc/bash_completion.d/yq
 brew install watch
 # installation of htop
 brew install watch
+
+# installation of lighthouse cli
+sudo npm intall -g lighthouse
