@@ -33,7 +33,7 @@ function mutagenSyncStart {
     fi
 
     echo "[mutagen-toolbox] Starting Synchronisation for $dockerSyncPath"
-    mutagen sync create --name=$projectName $(dirname "$dockerSyncPath") docker://root@$DOCKER_APACHE_CONTAINER/home/$projectName --label $projectName --default-owner-beta $DOCKER_APACHE_USER --default-group-beta $DOCKER_APACHE_GROUP  --default-directory-mode-beta 775 --default-file-mode-beta 664 --default-group-beta $DOCKER_APACHE_GROUP --ignore=.git,.idea,var
+    mutagen sync create --name=$projectName $(dirname "$dockerSyncPath") docker://root@$DOCKER_APACHE_CONTAINER/home/$projectName --label $projectName --default-owner-beta $DOCKER_APACHE_USER --default-group-beta $DOCKER_APACHE_GROUP  --default-directory-mode-beta 775 --default-file-mode-beta 664 --default-group-beta $DOCKER_APACHE_GROUP --ignore=.git,.idea,var --sync-mode two-way-resolved
   done <<< "$DOCKER_SYNCS_CONFIG"
 }
 
