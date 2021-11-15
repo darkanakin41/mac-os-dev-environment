@@ -2,10 +2,12 @@
 
 source "${0:A:h}"/.env
 source "${0:A:h}"/alias/docker
-source "${0:A:h}"/alias/mutagen
 source "${0:A:h}"/alias/npm
 source "${0:A:h}"/alias/symfony
 
-PATH="$PATH:${0:A:h}/bin"
+PATH="$PATH:${0:A:h}/bin:$HOME/.composer/vendor/bin"
 
 chmod +x "${0:A:h}"/bin/*
+
+# shellcheck disable=SC1090
+source ~/.iterm2_shell_integration.zsh
