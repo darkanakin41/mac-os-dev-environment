@@ -2,3 +2,4 @@
 
 # Oh my ZSH configuration
 plugins=(git brew docker docker-compose zsh-syntax-highlighting zsh-autosuggestions)
+ZSH_THEME="powerlevel10k/powerlevel10k"
