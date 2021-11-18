@@ -40,7 +40,7 @@ cliTools.command('stack [action]', 'Manage the full stack', (yargs) => {
 
 cliTools.command('git [action]', 'Simple git actions', (yargs) => {
   return yargs.positional('action', {
-    describe: 'update',
+    describe: 'update, online',
     default: '--help'
   })
 }, (argv) => {

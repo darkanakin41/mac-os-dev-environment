@@ -18,6 +18,28 @@ const mutagenCommonOptions = [
 
 const startMutagen = () => {
     const syncs = getSyncs()
+    const syncsDist = getSyncs('docker-sync.yml.dist')
+
+    let separator = false
+    Object.keys(syncsDist).forEach((name) => {
+        if(!syncs[name]) {
+            console.log(`${chalk.keyword('orange')('[mutagen]')} ${path.parse(process.cwd()).base}: ${name} is not defined in docker-sync.yml`)
+            separator = true
+        }
+    })
+    if(separator){
+        console.log("---------------------------------------------------------")
+        separator = false
+    }
+    Object.keys(syncs).forEach((name) => {
+        if(!syncsDist[name]) {
+            console.log(`${chalk.keyword('orange')('[mutagen]')} ${path.parse(process.cwd()).base}: ${name} is not defined in docker-sync.yml.dist`)
+            separator = true
+        }
+    })
+    if(separator){
+        console.log("---------------------------------------------------------")
+    }
     Object.keys(syncs).forEach((name) => {
         const config = syncs[name]
         if(!config.src){

@@ -1,10 +1,13 @@
-const {getDockerComposes} = require('../utils/docker-sync')
+const { getDockerComposes } = require('../utils/docker-sync')
 
-const getBaseCommand = () => {
+const getBaseCommand = (workdir) => {
+  const dockerComposes = getDockerComposes(workdir)
+  if (Array.isArray(dockerComposes)) {
     return [
-        'docker-compose',
-        ...getDockerComposes().map((file) => `-f ${file}`)
-    ].join(' ');
+      'docker-compose',
+      ...dockerComposes.map((file) => `-f ${file}`)
+    ].join(' ')
+  }
 }
 
-module.exports = {getBaseCommand: getBaseCommand}
+module.exports = { getBaseCommand: getBaseCommand }

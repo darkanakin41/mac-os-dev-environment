@@ -30,11 +30,11 @@ function dcBash {
 # Execute PHP in the php container
 function dcPhp {
     CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
-    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd" -T php php "$@"
+    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd" php php "$@"
 }
 
 # Execute Composer in the php container
 function dcComposer {
     CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
-    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd"/ -T php composer "$@"
+    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd"/ php composer "$@"
 }
