@@ -8,6 +8,7 @@
 
 # Execute docker-compose with the right yml files
 function dc {
+  echo $(docker-toolbox docker get-command)
     $(docker-toolbox docker get-command) $@
 }
 

@@ -1,7 +1,6 @@
 const path = require('path')
 const chalk = require('chalk');
 const open = require('open');
-
 const simpleGit = require('simple-git');
 
 const toReplace = {
@@ -12,7 +11,13 @@ const toReplace = {
     '\t':'',
 }
 
-const seeOnlineGit = () => {
+exports.command = 'online'
+
+exports.describe = 'Open git repository in web browser'
+
+exports.builder = {}
+
+exports.handler = function(){
     const projectName = path.parse(process.cwd()).base
 
     const git = simpleGit(process.cwd())
@@ -29,5 +34,3 @@ const seeOnlineGit = () => {
         }
     })
 }
-
-module.exports = seeOnlineGit

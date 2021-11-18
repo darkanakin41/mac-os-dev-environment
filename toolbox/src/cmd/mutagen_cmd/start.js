@@ -2,9 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk');
 const execSync = require('child_process').execSync;
-const { getSyncs } = require("../utils/docker-sync")
+const { getSyncs } = require("../../utils/docker-sync")
 
-const {DOCKER_APACHE_CONTAINER, DOCKER_APACHE_USER, DOCKER_APACHE_GROUP} = require('../config')
+const {DOCKER_APACHE_CONTAINER, DOCKER_APACHE_USER, DOCKER_APACHE_GROUP} = require('../../config')
 
 const mutagenCommonOptions = [
     `--default-owner-beta ${DOCKER_APACHE_USER}`,
@@ -16,7 +16,13 @@ const mutagenCommonOptions = [
     '--symlink-mode posix-raw',
 ]
 
-const startMutagen = () => {
+exports.command = 'start'
+
+exports.describe = 'Start mutagen synchronization'
+
+exports.builder = {}
+
+exports.handler = function(){
     const syncs = getSyncs()
     const syncsDist = getSyncs('docker-sync.yml.dist')
 
@@ -71,5 +77,3 @@ const startMutagen = () => {
         }
     })
 }
-
-module.exports = startMutagen

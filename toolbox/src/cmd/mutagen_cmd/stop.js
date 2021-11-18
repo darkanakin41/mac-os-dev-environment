@@ -2,9 +2,16 @@ const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk');
 const execSync = require('child_process').execSync;
-const { getSyncs } = require("../utils/docker-sync");
+const { getSyncs } = require("../../utils/docker-sync")
 
-const stopMutagen = () => {
+
+exports.command = 'stop'
+
+exports.describe = 'Stop mutagen synchronization'
+
+exports.builder = {}
+
+exports.handler = function(){
     const syncs = getSyncs()
     Object.keys(syncs).forEach((name) => {
         const config = syncs[name]
@@ -27,5 +34,3 @@ const stopMutagen = () => {
         }
     })
 }
-
-module.exports = stopMutagen

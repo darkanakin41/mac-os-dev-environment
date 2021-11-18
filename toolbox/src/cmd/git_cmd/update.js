@@ -2,13 +2,17 @@ const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk');
 const execSync = require('child_process').execSync;
-const {getBaseCommand} = require('../utils/docker-compose')
-
 const simpleGit = require('simple-git');
+const {getBaseCommand} = require('../../utils/docker-compose')
+const { getSyncs } = require("../../utils/docker-sync")
 
-const { getSyncs } = require("../utils/docker-sync")
+exports.command = 'update'
 
-const updateGit = () => {
+exports.describe = 'Update related repositories'
+
+exports.builder = {}
+
+exports.handler = function(){
     const syncs = getSyncs()
     Object.keys(syncs).forEach((name) => {
         const config = syncs[name]
@@ -47,5 +51,3 @@ const updateGit = () => {
         })
     })
 }
-
-module.exports = updateGit
