@@ -16,6 +16,7 @@ Then you can run available commands.
 ### Git
 ```shell
 docker-toolbox git update # Update related git repositories
+docker-toolbox git online # Open the current repository in web browser
 ```
 
 ### Docker
