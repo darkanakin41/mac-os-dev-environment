@@ -32,10 +32,20 @@ const checkComposer = (projectName, workingDir) => {
   execSync('composer validate')
 }
 
-const packageCheck = (projectName, packageName, actions) => {
-  if (composerHasPackage(packageName)) {
+const packageCheck = (projectName, packageName, configuration) => {
+  let hasPackage = composerHasPackage(packageName)
+  if(!hasPackage){
+    if(configuration.variants){
+      configuration.variants.forEach((variant) => {
+        if(composerHasPackage(variant)){
+          hasPackage = true
+        }
+      })
+    }
+  }
+  if (hasPackage) {
     console.log(`${chalk.blue('[symfony]')} ${projectName}: ${chalk.green(`${packageName} is installed`)}`)
-    actions.forEach(action => {
+    configuration.actions.forEach(action => {
       try {
         execSync(action)
         console.log(`${chalk.keyword('orange')(`[${packageName}]`)} "${action}": ${chalk.green('validated')}`)
