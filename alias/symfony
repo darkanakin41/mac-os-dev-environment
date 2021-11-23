@@ -1,8 +1,0 @@
-#!/bin/zsh
-
-function symfonyCheck {
-  dcComposer validate
-  dcPhp bin/console doctrine:schema:validate --skip-sync --no-interaction
-  dcPhp bin/console lint:yaml config --parse-tags
-  dcPhp bin/console lint:twig templates
-}
