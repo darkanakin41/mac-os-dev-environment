@@ -1,6 +1,6 @@
 const { getSyncs } = require("../../utils/docker-sync")
-const { handler: dockerStart } = require('../mutagen_cmd/start').handler;
-const { handler: mutagenStart } = require('../docker_cmd/start').handler;
+const { handler: mutagenStart } = require('../mutagen_cmd/start');
+const { handler: dockerStart } = require('../docker_cmd/start');
 
 exports.command = 'start'
 
