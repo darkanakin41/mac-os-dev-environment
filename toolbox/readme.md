@@ -15,8 +15,9 @@ Then you can run available commands.
 
 ### Git
 ```shell
-docker-toolbox git update # Update related git repositories
 docker-toolbox git online # Open the current repository in web browser
+docker-toolbox git fetch # Update related git repositories
+docker-toolbox git update # Update related git repositories
 ```
 
 ### Docker
@@ -41,6 +42,13 @@ docker-toolbox stack stop # Stop the both docker and mutagen in the right order
 docker-toolbox stack restart # Restart the both docker and mutagen in the right order
 ```
 
+### Symfony
+```shell
+docker-toolbox symfony add-idea-env # Add configuration to .env.local to open idea from profiler
+docker-toolbox symfony check # Execute a list of checks on symfony project
+```
+
 ## Used documentations : 
 
 * https://www.sitepoint.com/javascript-command-line-interface-cli-node-js/
+* https://baptiste-wicht.com/posts/2014/07/pm-011-a-simple-workspace-manager-for-git-projects.html
