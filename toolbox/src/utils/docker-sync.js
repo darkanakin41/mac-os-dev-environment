@@ -36,6 +36,14 @@ const getDockerComposes = (currentWorkingDirectory) => {
 
   try {
     const doc = yaml.load(fs.readFileSync(dockerSyncFile, 'utf8'))
+    if(doc.options['compose-file-path'] === undefined){
+      if(fs.existsSync(path.join(currentWorkingDirectory, 'docker-compose.yml'))){
+        return [path.join(currentWorkingDirectory, 'docker-compose.yml')]
+      }
+      console.error("No docker-compose.yml file found")
+      return 1
+    }
+
     return doc.options['compose-file-path'].map((filePath) => {
       return path.join(currentWorkingDirectory, filePath)
     })

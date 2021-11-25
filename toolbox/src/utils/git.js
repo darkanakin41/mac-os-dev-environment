@@ -63,6 +63,7 @@ const getPullRequestCreateUrl = async (workdir) => {
       return null
   }
 }
+
 const getPullRequestListUrl = async (workdir) => {
   const baseUrl = await getPublicUrl(workdir)
 

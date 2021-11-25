@@ -4,14 +4,15 @@ const chalk = require('chalk');
 const execSync = require('child_process').execSync;
 const { getSyncs } = require("../../utils/docker-sync")
 
-const {DOCKER_APACHE_CONTAINER, DOCKER_APACHE_USER, DOCKER_APACHE_GROUP} = require('../../config')
+const {DOCKER_APACHE_USER, DOCKER_APACHE_GROUP} = require('../../config')
+const { getContainerName } = require('../../utils/docker-compose')
 
 const mutagenCommonOptions = [
     `--default-owner-beta ${DOCKER_APACHE_USER}`,
     `--default-group-beta ${DOCKER_APACHE_GROUP}`,
     '--default-directory-mode-beta 775',
     '--default-file-mode-beta 664',
-    '--ignore=.git,.idea,var',
+    '--ignore=.git,.idea,.docker,var',
     '--sync-mode two-way-resolved ',
     '--symlink-mode posix-raw',
 ]
@@ -67,7 +68,7 @@ exports.handler = function(){
                 'sync',
                 'create',
                 syncedFolder,
-                `docker://root@${DOCKER_APACHE_CONTAINER}/home/${projectName}`,
+                `docker://root@${getContainerName(process.cwd(), 'apache')}/home/${projectName}`,
                 `--name=${projectName}`,
                 `--label ${projectName}`,
                 ...mutagenCommonOptions
