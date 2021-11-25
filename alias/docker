@@ -8,7 +8,7 @@
 
 # Execute docker-compose with the right yml files
 function dc {
-    $(docker-toolbox docker get-command) $@
+    $(dt docker get-command) $@
 }
 
 # Launch docker exec bash in given container
@@ -18,7 +18,7 @@ function dcBash {
         return 1
     fi
     CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
-    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd" $1 bash
+    $(dt docker get-command) exec --workdir /home/"$CurrentWd" $1 bash
 }
 
 ########################################################################################################################
@@ -30,11 +30,11 @@ function dcBash {
 # Execute PHP in the php container
 function dcPhp {
     CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
-    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd" php php "$@"
+    $(dt docker get-command) exec --workdir /home/"$CurrentWd" php php "$@"
 }
 
 # Execute Composer in the php container
 function dcComposer {
     CurrentWd=$(pwd | sed "s|$PROJECTS_ROOT_FOLDER||")
-    $(docker-toolbox docker get-command) exec --workdir /home/"$CurrentWd"/ php composer "$@"
+    $(dt docker get-command) exec --workdir /home/"$CurrentWd"/ php composer "$@"
 }

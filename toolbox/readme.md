@@ -15,37 +15,37 @@ Then you can run available commands.
 
 ### Git
 ```shell
-docker-toolbox git online # Open the current repository in web browser
-docker-toolbox git fetch # Update related git repositories
-docker-toolbox git update # Update related git repositories
+dt git online # Open the current repository in web browser
+dt git fetch # Update related git repositories
+dt git update # Update related git repositories
 ```
 
 ### Docker
 ```shell
-docker-toolbox docker start # Start the stack
-docker-toolbox docker stop # Stop the stack
-docker-toolbox docker restart # Restart the stack
-docker-toolbox docker get-command # Get the full docker-compose command to be executed
+dt docker start # Start the stack
+dt docker stop # Stop the stack
+dt docker restart # Restart the stack
+dt docker get-command # Get the full docker-compose command to be executed
 ```
 
 ### Mutagen
 ```shell
-docker-toolbox mutagen start # Start the synchronization
-docker-toolbox mutagen stop # Stop the synchronization
-docker-toolbox mutagen restart # Restart the synchronization
+dt mutagen start # Start the synchronization
+dt mutagen stop # Stop the synchronization
+dt mutagen restart # Restart the synchronization
 ```
 
 ### Stack
 ```shell
-docker-toolbox stack start # Start the both docker and mutagen in the right order
-docker-toolbox stack stop # Stop the both docker and mutagen in the right order
-docker-toolbox stack restart # Restart the both docker and mutagen in the right order
+dt stack start # Start the both docker and mutagen in the right order
+dt stack stop # Stop the both docker and mutagen in the right order
+dt stack restart # Restart the both docker and mutagen in the right order
 ```
 
 ### Symfony
 ```shell
-docker-toolbox symfony add-idea-env # Add configuration to .env.local to open idea from profiler
-docker-toolbox symfony check # Execute a list of checks on symfony project
+dt symfony add-idea-env # Add configuration to .env.local to open idea from profiler
+dt symfony check # Execute a list of checks on symfony project
 ```
 
 ## Used documentations : 

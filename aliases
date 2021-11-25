@@ -14,3 +14,5 @@ source ~/.iterm2_shell_integration.zsh
 
 docker-toolbox completion > "${0:A:h}"/completion/docker-toolbox
 source "${0:A:h}"/completion/docker-toolbox
+dt completion > "${0:A:h}"/completion/dt
+source "${0:A:h}"/completion/dt
