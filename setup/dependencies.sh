@@ -22,3 +22,7 @@ echo "/usr/local/bin/zsh" >> /etc/shells
 
 # nstallation of docker
 brew install --cask docker
+
+# Installation of php
+brew install php@7.4
+ln -s /usr/local/Cellar/php@7.4/7.4.26_1.reinstall/bin/php /usr/local/bin/php
