@@ -1,0 +1,47 @@
+version: "3.3"
+
+services:
+    traefik:
+        image: "traefik:v2.5"
+        container_name: "traefik"
+        restart: unless-stopped
+        ports:
+            - "8080:8080"
+            - "80:80"
+            - "443:443"
+        volumes:
+            - "./config/traefik/traefik.toml:/traefik.toml"
+            - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.local`)"
+            - "traefik.http.routers.traefik-dashboard.service=api@internal"
+            - "traefik.http.routers.traefik-dashboard-localhost.rule=Host(`localhost`, `127.0.0.1`)"
+            - "traefik.http.routers.traefik-dashboard-localhost.service=api@internal"
+        networks:
+            - traefik_network
+
+    portainer:
+        image: portainer/portainer-ce:2.9.2
+        restart: unless-stopped
+        command: -H unix:///var/run/docker.sock
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./data/portainer:/data
+        environment:
+            TZ: "Europe/Paris"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.portainer.rule=Host(`portainer.local`)"
+            - "traefik.http.routers.portainer.service=portainer"
+            - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+        networks:
+            - traefik_network
+
+volumes:
+    portainer: {}
+
+networks:
+  traefik_network:
+    name: traefik_network
