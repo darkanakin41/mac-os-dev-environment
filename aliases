@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-
 source "${0:A:h}"/.env
 source "${0:A:h}"/alias/docker
 source "${0:A:h}"/alias/npm
